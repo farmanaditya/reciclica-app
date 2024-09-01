@@ -7,8 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PickupCallsPageRoutingModule } from './pickup-calls-routing.module';
 
 import { PickupCallsPage } from './pickup-calls.page';
-import { PickupCallCardComponent } from 'src/app/components/pickup-call-card/pickup-call-card.component';
-import { ComponentsModule } from 'src/app/components/components.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -16,10 +15,10 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     PickupCallsPageRoutingModule,
-    ComponentsModule
+    SharedModule
   ],
   declarations: [
-    PickupCallsPage,
+    PickupCallsPage
   ]
 })
 export class PickupCallsPageModule {}

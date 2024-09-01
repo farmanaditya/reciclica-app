@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HomePage } from './home.page';
-import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
 describe('HomePage', () => {
@@ -21,7 +21,6 @@ describe('HomePage', () => {
     fixture = TestBed.createComponent(HomePage);
     router = TestBed.get(Router);
     component = fixture.componentInstance;
-  
   }));
 
   it('should go to pickup-calls on see all', () => {
@@ -30,14 +29,12 @@ describe('HomePage', () => {
     component.goToPickupCalls();
 
     expect(router.navigate).toHaveBeenCalledWith(['pickup-calls']);
-  })
+  });
 
-  it('should go to pickup-calls on create pickup call', () => {
+  it('should go to new pickup call on create pickup call', () => {
     spyOn(router, 'navigate');
 
     component.newPickupCall();
-
     expect(router.navigate).toHaveBeenCalledWith(['pickup-call']);
-  })
-
+  });
 });
