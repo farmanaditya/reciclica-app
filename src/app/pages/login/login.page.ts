@@ -25,17 +25,23 @@ export class LoginPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.form = new LoginPageForm(this.formBuilder).createForm();
 
+    // Debugging: Log form status changes
+    this.form.statusChanges.subscribe(status => {
+      console.log('Form Status:', status);
+      console.log('Form Valid:', this.form.valid);
+    });
+
     this.loginStateSubscription = this.store.select('login').subscribe(loginState => {
       this.onIsRecoveredPassword(loginState);
       this.onIsloggedIn(loginState);
       this.onError(loginState);
       this.toggleLoading(loginState);
-    })
+    });
   }
 
   ngOnDestroy() {
     if (this.loginStateSubscription) {
-      this.loginStateSubscription.unsubscribe()
+      this.loginStateSubscription.unsubscribe();
     }
   }
 
@@ -47,7 +53,7 @@ export class LoginPage implements OnInit, OnDestroy {
     }
   }
 
-  private onIsloggedIn(loginState: LoginState){
+  private onIsloggedIn(loginState: LoginState) {
     if (loginState.isLoggedIn) {
       this.router.navigate(['home']);
     }
@@ -77,11 +83,11 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   forgotEmailPassword() {
-    this.store.dispatch(recoverPassword({email: this.form.get('email')?.value}));
+    this.store.dispatch(recoverPassword({ email: this.form.get('email')?.value }));
   }
 
   login() {
-    this.store.dispatch(login({email: this.form.get('email')?.value, password: this.form.get('password')?.value}));
+    this.store.dispatch(login({ email: this.form.get('email')?.value, password: this.form.get('password')?.value }));
   }
 
   register() {
