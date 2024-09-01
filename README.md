@@ -1,2 +1,2 @@
 # reciclica-app
-Recyling App - Praktikum PGPBL Acara 1
+Recyling App - Praktikum PGPBL
