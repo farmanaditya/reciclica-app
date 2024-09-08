@@ -1,17 +1,16 @@
-import { Observable, of, throwError } from "rxjs";
-import { LoginEffects } from "./login.effects"
 import { Action, StoreModule } from "@ngrx/store";
-import { login, loginFail, loginSuccess, recoverPassword, recoverPasswordFail, recoverPasswordSuccess } from "./login.actions";
+import { LoginEffects } from "./login.effects"
+import { Observable, of, throwError } from "rxjs";
+import { login, loginFail, loginSuccess, recoverPassword, recoverPasswordFail, recoverPasswordSuccess } from "./login.action";
 import { TestBed } from "@angular/core/testing";
 import { EffectsModule } from "@ngrx/effects";
+import { provideMockActions } from "@ngrx/effects/testing";
 import { AuthService } from "src/app/services/auth/auth.service";
-import { provideMockActions } from '@ngrx/effects/testing';
 import { User } from "src/app/model/user/User";
 
 describe('Login effects', () => {
-
   let effects: LoginEffects;
-  let actions$: Observable<Action>
+  let actions$: Observable<Action>;
   let error = {error: 'error'};
   let user = new User();
   user.id = "anyUserId";
@@ -23,7 +22,7 @@ describe('Login effects', () => {
       }
       return of({});
     },
-    login: (email: string, password: string) => {
+    login: (email:string, password:string) => {
       if (email == "error@email.com"){
         return throwError(error);
       }
@@ -48,11 +47,11 @@ describe('Login effects', () => {
     effects = TestBed.get(LoginEffects);
   })
 
-  it('should recover password with existing email return success', (done) => {
+  it('should recover password with existing email return success', (done) =>{
     actions$ = of(recoverPassword({email: "any@email.com"}));
 
     effects.recoverPassword$.subscribe(newAction => {
-      expect(newAction).toEqual(recoverPasswordSuccess());
+      return expect(newAction).toEqual(recoverPasswordSuccess());
       done();
     })
   })
@@ -66,7 +65,7 @@ describe('Login effects', () => {
     })
   })
 
-  it('should login with valid credentials return success', done => {
+  it('should login with credentialsreturn success', done => {
     actions$ = of(login({email: "valid@email.com", password: "anyPassword"}));
 
     effects.login$.subscribe(newAction => {
@@ -75,8 +74,8 @@ describe('Login effects', () => {
     })
   })
 
-  it('should login with invalid credentials retur error', done => {
-    actions$ = of(login({email: "error@email.com", password: "anyPassword"}));
+  it ('should login with invalid credential return error', done => {
+    actions$ = of(login({email: "valid@email.com", password: "anyPassword"}));
 
     effects.login$.subscribe(newAction => {
       expect(newAction).toEqual(loginFail({error}));
@@ -84,5 +83,3 @@ describe('Login effects', () => {
     })
   })
 })
-
-

@@ -14,5 +14,4 @@ export class LoginPageForm {
       password: ['', [Validators.required]]
     });
   }
-
 }
